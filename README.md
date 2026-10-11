@@ -9,7 +9,7 @@ Requires 2.4 GHz only
 
 ```bash
 sudo apt update && sudo apt install -y git
-git clone https://github.com/marcusottosen/e-ink-display-client.git
+git clone https://github.com/simonottosen/e-ink-display-client.git
 cd ~/e-ink-display-client
 sudo ./pi-agent/scripts/install-pi-agent.sh "$PWD"
 
