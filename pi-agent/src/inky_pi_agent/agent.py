@@ -60,7 +60,11 @@ class InkyAgent:
             self.spool.save_state(self.state)
 
         desired = self.transport.desired_state(self.state.current_revision)
-        if desired is None or desired.revision <= self.state.current_revision:
+        # Our revision records what we last put on the panel, not how far the host has got.
+        # Revisions count up from zero in the host database, so resetting that database makes
+        # the next revision lower than the one we are holding. Treating ours as a high water
+        # mark strands the panel until the host counts past it, which can be forever.
+        if desired is None or desired.revision == self.state.current_revision:
             return False
         if desired.display_id != self.settings.display_id:
             raise ValueError(
